@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting and Cleaning Data - Course Project
 
 ### Source Data : Human Activity Recognition Using Smartphones Dataset Version 1.0
@@ -34,3 +35,9 @@ A subset of the features(68) were used for this analysis. These features have be
 					     Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012.
 
 
+=======
+DataCleansingandAnalysis
+========================
+
+This repository is being created as an assignment for DataScience Specilization track on Coursera.
+>>>>>>> 27b5567449fab01e93139760079d785e8cdc9459
