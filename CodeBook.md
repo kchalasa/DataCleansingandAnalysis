@@ -95,26 +95,27 @@ Pseudocode for this function.
 * It will unzip this dataset.
 * Finally it will return this new "working directory" location.
 
-	dataDownload<-function(dir,zipfileurl) {
-		dir<-paste(dir,"/data",sep="") # Caution directory will removed and recreated each time
-		if (!file.exists(dir)) 
-			{
-			dir.create(dir) 
-			} else  
-				{
-				unlink(dir, recursive = TRUE)
-				dir.create(dir) 
-				}
-		setwd(dir)
-		download.file(zipfileurl,destfile="dataDownload.zip")
-		unzip("dataDownload.zip")
-		dir<-gsub("/data","",dir)
-		setwd(dir)
-		dir
-   }
-
-	
-
-
-
-
+    dataDownload<-function(dir,zipfileurl) {
+    	dir<-paste(dir,"/data",sep="") # Caution directory will removed and recreated each time
+    	if (!file.exists(dir)) 
+    		{
+    		dir.create(dir) 
+    		} else  
+    			{
+    			unlink(dir, recursive = TRUE)
+    			dir.create(dir) 
+    			}
+    	setwd(dir)
+    	download.file(zipfileurl,destfile="dataDownload.zip")
+    	unzip("dataDownload.zip")
+    	dir<-gsub("/data","",dir)
+    	setwd(dir)
+    	dir
+    }
+    
+    	
+    
+    
+    
+    
+    
