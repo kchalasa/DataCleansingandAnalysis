@@ -12,12 +12,12 @@ average of "standard deviation" measurements  with features named like "std()" i
 Selected quantitative features (66) are included for each of the 30 volunteers ("person") and six of their 6 physical activities ("activity"). 
 So in this dataset there are only 180 aggregated records, one record per each activity for each person. 
 
-## Variables in the tidydata
+## Variables in the "tidydata.txt"
 
 Below is the description for the variables included in the data set for the course project. Each of these features or variables were collected from sensors 
 (the accelerometer and gyroscope 3-axial raw signals) of the Samsung Galaxy S II phone in the orginal study.
 
-####General feature names (labels) "notes" :
+####General feature labels:
 *person : A unique label id (1 thru 30) assigned to each of the volunteer in this experiment.
 *activity: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING 
 *Prefix 't' to denote the time domain signals
@@ -35,52 +35,48 @@ Below is the description for the variables included in the data set for the cour
 
 ####General feature groups:
 
-1. Using Samsung Galaxy S II phone's embedded accelerometer, 3-axial linear acceleration were captured. 
-These sensor acceleration signals were pre-processed and separated using a Butterworth low-pass filter into body acceleration and gravity.
-These features are labeled as listed below along XYZ axis for their "mean" and standard deviation averages. 
+1. Using Samsung Galaxy S II phone's embedded accelerometer, 3-axial linear acceleration were captured. These sensor acceleration signals were pre-processed and separated using a Butterworth low-pass filter into body acceleration and gravity. These features are labeled as listed below along XYZ axis for their "mean" and standard deviation averages. 
 
-*fbody_acceleration
-*tbody_acceleration
-*tgravity_acceleration
+* fbody_acceleration
+* tbody_acceleration
+* tgravity_acceleration
 
 
-2. Using Samsung Galaxy S II phone's embedded gyroscope, 3-axial angular velocities were captured.  
-These features are labeled with the prefix below along three axis (XYZ) for their average "mean" and average "standard deviation (std)".
-*fbody_gyro_angular_velocity
-*tbody_gyro_angular_velocity
+2. Using Samsung Galaxy S II phone's embedded gyroscope, 3-axial angular velocities were captured. These features are labeled with the prefix below along three axis (XYZ) for their average "mean" and average "standard deviation (std)".
+
+* fbody_gyro_angular_velocity
+* tbody_gyro_angular_velocity
 
 
-3. Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals
-These features are labeled with the prefix below along three axis (XYZ) for their average "mean" and average "standard deviation (std)".
+3. Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals. These features are labeled with the prefix below along three axis (XYZ) for their average "mean" and average "standard deviation (std)".
 
-*fbody_acceleration_jerk_signal
-*tbody_acceleration_jerk_signal
-*tbody_gyro_angular_velocity_jerk_signal
+* fbody_acceleration_jerk_signal
+* tbody_acceleration_jerk_signal
+* tbody_gyro_angular_velocity_jerk_signal
 
-4. The magnitude of these three-dimensional signals were calculated using the Euclidean norm , for all the above.
-These features are labeled with the prefix below along three axis (XYZ) for their average "mean" and average "standard deviation (std)".
+4. The magnitude of these three-dimensional signals were calculated using the Euclidean norm. These features are labeled with the prefix below along three axis (XYZ) for their average "mean" and average "standard deviation (std)".
 
-*fbody_acceleration_magnitude
-*fbody_bodyacceleration_jerk_signal_magnitude
-*fbody_bodygyro_angular_velocity_jerk_signal_magnitude
-*fbody_bodygyro_angular_velocity_magnitude
-*tbody_acceleration_jerk_signal_magnitude
-*tbody_acceleration_magnitude
-*tbody_gyro_angular_velocity_jerk_signal_magnitude
-*tbody_gyro_angular_velocity_magnitude
-*tgravity_acceleration_magnitude
+* fbody_acceleration_magnitude
+* fbody_bodyacceleration_jerk_signal_magnitude
+* fbody_bodygyro_angular_velocity_jerk_signal_magnitude
+* fbody_bodygyro_angular_velocity_magnitude
+* tbody_acceleration_jerk_signal_magnitude
+* tbody_acceleration_magnitude
+* tbody_gyro_angular_velocity_jerk_signal_magnitude
+* tbody_gyro_angular_velocity_magnitude
+* tgravity_acceleration_magnitude
 
 The complete list of variables names in this subset for course project are available in 'features.txt'
 
-## Transformations for this data : Several transformations were applied to the original data set in order to prepare the final clean data set ("tidydata.txt")
-for this project. These transformations were organized as four R functions included in the "run_analysis.R" script. 
+## Transformations for this data : 
+Several transformations were applied to the original data set in order to prepare the final clean data set ("tidydata.txt") for this project. These transformations were organized as four R functions included in the "run_analysis.R" script. 
 	
 The following is a general description for these functions :
 	
-*Function 1 -dataDownload: Download and Unzip the original data set.
-*Function 2 -loadMerge: Merge "Training" and "Test" data sets for each volunteer and their activiy into one data frame.
-*Function 3 -cleanData: Feature selection, label cleanup, and convert numeric activity labels to descriptive labels
-*Function 4 -writeTidyData: Calculate average for all quantitative variables selected for each person and their activity, and generate "tidydata.txt"
+* Function 1 -dataDownload: Download and Unzip the original data set.
+* Function 2 -loadMerge: Merge "Training" and "Test" data sets for each volunteer and their activiy into one data frame.
+* Function 3 -cleanData: Feature selection, label cleanup, and convert numeric activity labels to descriptive labels
+* Function 4 -writeTidyData: Calculate average for all quantitative variables selected for each person and their activity, and generate "tidydata.txt"
 	
 ####Function 1 -dataDownload(dir,zipfileurl)
 
@@ -93,7 +89,7 @@ Pseudocode for this function.
 * It will change the working directory to this newly created directory.
 * Download the zipped dataset from the internet URL passed (zipfileurl).
 * It will unzip this dataset.
-* Finally it will return this new "working directory" location.
+* Finally it will data subdirectory as new "working directory" location.
 
 ```
     dataDownload<-function(dir,zipfileurl) {
