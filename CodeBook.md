@@ -84,37 +84,34 @@ The following is a general description for these functions :
 	
 ####Function 1 -dataDownload(dir,zipfileurl)
 
-This function takes working directory and internet URL for the zipped source data as input parameters. 
+This function takes two parameters, 1) a working directory location (dir) and 2) an internet url for the zipped data location (zipfileurl).
+
 Pseudocode for this function.
-* Check if "data" directory exists in the working directory.
-* It creates a "data" directory if it doesnot exists.
+* Check if "data" directory exists in the working directory (dir).
+* It creates a "data" directory if it doesnot exists in the working directory.
 * It will delete and re-create a "data" directory if it already exists.
-* It will change the working directory to this newly created directory
-* It will return this new "working directory"
+* It will change the working directory to this newly created directory.
+* Download the zipped dataset from the internet URL passed (zipfileurl).
+* It will unzip this dataset.
+* Finally it will return this new "working directory" location.
 
-
-    #############################################
-    #' Function 1- dataDownload --Step 0. Function to download zipped data and unzip it
-    #' parameter1- dir - Location to the "Path" where a directory is "CREATED". CAUTION: If a directory already exists, it will deleted and recreated.
-    #' parameter2- zipfileurl - Internet url for the zipfile location
-    dataDownload<-function(dir,zipfileurl) {
-        #' Caution directory will removed and recreated each time
-        dir<-paste(dir,"/data",sep="")
-        if (!file.exists(dir)) 
-            {
-            dir.create(dir) 
-            } else  
-                {
-                unlink(dir, recursive = TRUE)
-                dir.create(dir) 
-                }
-        setwd(dir)
-        download.file(zipfileurl,destfile="dataDownload.zip")
-        unzip("dataDownload.zip")
-        dir<-gsub("/data","",dir)
-        setwd(dir)
-        dir
-    }
+	dataDownload<-function(dir,zipfileurl) {
+		dir<-paste(dir,"/data",sep="") # Caution directory will removed and recreated each time
+		if (!file.exists(dir)) 
+			{
+			dir.create(dir) 
+			} else  
+				{
+				unlink(dir, recursive = TRUE)
+				dir.create(dir) 
+				}
+		setwd(dir)
+		download.file(zipfileurl,destfile="dataDownload.zip")
+		unzip("dataDownload.zip")
+		dir<-gsub("/data","",dir)
+		setwd(dir)
+		dir
+   }
 
 	
 
