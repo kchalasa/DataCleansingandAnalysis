@@ -96,11 +96,11 @@ Pseudocode for this function.
 * Finally it will return this new "working directory" location.
 
     dataDownload<-function(dir,zipfileurl) {
-    	dir<-paste(dir,"/data",sep="") # Caution directory will removed and recreated each time
-    	if (!file.exists(dir)) 
-    		{
-    		dir.create(dir) 
-    		} else  
+        dir<-paste(dir,"/data",sep="") # Caution directory will removed and recreated each time
+        if (!file.exists(dir)) 
+                {
+                dir.create(dir) 
+                } else  
     			{
     			unlink(dir, recursive = TRUE)
     			dir.create(dir) 
