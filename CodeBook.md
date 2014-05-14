@@ -80,16 +80,16 @@ The following is a general description for these functions :
 	
 ####Function 1 -dataDownload(dir,zipfileurl)
 
-This function takes two parameters, 1) a working directory location (dir) and 2) an internet url for the zipped data location (zipfileurl).
+This function takes two parameters, 1) a working directory location (dir) and 2) an internet url for the zipped data location (zipfileurl). It returns the new working directory for the project.
 
 Pseudocode for this function.
 * Check if "data" directory exists in the working directory (dir).
-* It creates a "data" directory if it doesnot exists in the working directory.
-* It will delete and re-create a "data" directory if it already exists.
-* It will change the working directory to this newly created directory.
+* Creates a "data" directory if it doesnot exist in the working directory.
+* Delete and re-create a "data" directory if it already exists.
+* Change the working directory to this newly created directory location.
 * Download the zipped dataset from the internet URL passed (zipfileurl).
-* It will unzip this dataset.
-* Finally it will data subdirectory as new "working directory" location.
+* Unzip this dataset.
+* Finally make the data subdirectory as new "working directory" and return this location.
 
 ```
     dataDownload<-function(dir,zipfileurl) {
@@ -111,7 +111,14 @@ Pseudocode for this function.
     }
 ```
     
-    	
+####Function 2 -loadMerge(dir)
+
+This function takes working directory (dir) as input parameter and returns a merged data set containing all features for all volunteers and their numeric activity labels.
+
+Pseudocode for this function.
+* Get all the features from the UCI Samsung data set. 
+* Build TEST data set
+** load volunteers, their activities and their measurements into "allTest" data.frame.
     
     
     
