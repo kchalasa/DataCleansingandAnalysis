@@ -1,12 +1,9 @@
 # CODEBOOK - "Getting and Cleaning Data - Course Project"
 
-## Data - This data is a subset of the "Human Activity Recognition Using Smartphones Dataset Version 1.0". 
-The original data and the experiment are available at the UCI Machine Learning Repository. This data cannot be used for commercial purposes, 
-its license is included in the "README.MD".
+## Data
+This data is a subset of the "Human Activity Recognition Using Smartphones Dataset Version 1.0".The original data and the experiment are available at the UCI Machine Learning Repository. This data cannot be used for commercial purposes, its license and website url is included in the "README.md" file.
 
-An experiment was carried out on 30 volunteers and their six activities(WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) 
-while wearing a smartphone (Samsung Galaxy S II) on their waist. Using the sensors embedded in this phone, a lot of data were gathered, and several data 
-elements were derived from these data as well. 
+An experiment was carried out on 30 volunteers and ix activities(WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) they performed while wearing a smartphone (Samsung Galaxy S II) on their waist. Using the sensors embedded in this phone, a lot of data were gathered, and several data elements were derived from these data. 
 
 A set of transformations were applied on the original data set to arrive at the "tidydata" set for this project. These transformations are described in this document.
 
@@ -97,11 +94,11 @@ Pseudocode for this function.
 
 
     #############################################
-    ## Function 1- dataDownload --Step 0. Function to download zipped data and unzip it
-    ## parameter1- dir - Location to the "Path" where a directory is "CREATED". CAUTION: If a directory already exists, it will deleted and recreated.
-    ## parameter2- zipfileurl - Internet url for the zipfile location
+    #' Function 1- dataDownload --Step 0. Function to download zipped data and unzip it
+    #' parameter1- dir - Location to the "Path" where a directory is "CREATED". CAUTION: If a directory already exists, it will deleted and recreated.
+    #' parameter2- zipfileurl - Internet url for the zipfile location
     dataDownload<-function(dir,zipfileurl) {
-    ## Caution directory will removed and recreated each time
+        #' Caution directory will removed and recreated each time
         dir<-paste(dir,"/data",sep="")
         if (!file.exists(dir)) 
             {
