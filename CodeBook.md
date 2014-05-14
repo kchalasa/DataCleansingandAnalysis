@@ -98,19 +98,19 @@ Pseudocode for this function.
     dataDownload<-function(dir,zipfileurl) {
         dir<-paste(dir,"/data",sep="") # Caution directory will removed and recreated each time
         if (!file.exists(dir)) 
-                {
+            {
                 dir.create(dir) 
-                } else  
-    			{
-    			unlink(dir, recursive = TRUE)
-    			dir.create(dir) 
-    			}
-    	setwd(dir)
-    	download.file(zipfileurl,destfile="dataDownload.zip")
-    	unzip("dataDownload.zip")
-    	dir<-gsub("/data","",dir)
-    	setwd(dir)
-    	dir
+            } else  
+                {
+                    unlink(dir, recursive = TRUE)
+                    dir.create(dir) 
+                }
+        setwd(dir)
+        download.file(zipfileurl,destfile="dataDownload.zip")
+        unzip("dataDownload.zip")
+        dir<-gsub("/data","",dir)
+        setwd(dir)
+        dir
     }
     
     	
