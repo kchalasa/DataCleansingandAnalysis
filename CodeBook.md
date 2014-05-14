@@ -95,6 +95,7 @@ Pseudocode for this function.
 * It will unzip this dataset.
 * Finally it will return this new "working directory" location.
 
+```
     dataDownload<-function(dir,zipfileurl) {
         dir<-paste(dir,"/data",sep="") # Caution directory will removed and recreated each time
         if (!file.exists(dir)) 
@@ -112,6 +113,7 @@ Pseudocode for this function.
         setwd(dir)
         dir
     }
+```
     
     	
     
