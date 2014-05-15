@@ -1,7 +1,7 @@
 # CODEBOOK - "Getting and Cleaning Data - Course Project"
 
 ## Data
-This data is a subset of the "Human Activity Recognition Using Smartphones Dataset Version 1.0".The original data and the experiment are available at the UCI Machine Learning Repository. This data cannot be used for commercial purposes, its license and website url is included in the "README.md" file.
+This data is a subset of the "Human Activity Recognition Using Smartphones Dataset Version 1.0".The original data and the experiment are available at the [UCI Machine Learning Repository] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones). This data cannot be used for commercial purposes, its license and website url is included in the "README.md" file.
 
 An experiment was carried out on 30 volunteers and ix activities(WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) they performed while wearing a smartphone (Samsung Galaxy S II) on their waist. Using the sensors embedded in this phone, a lot of data were gathered, and several data elements were derived from these data. 
 
@@ -163,7 +163,8 @@ Pseudocode for this function.
 * Format the output data into scietific data format with seven digits after decimal.
 * write the data set into "tidydata.txt" file in the current working directory. 
 
-#####R Code Snippet - Execute the above functions in the order of theie definition to run this analysis. These functions are all kept in this one file for ease of navigation thru code.
+#####R Code Snippet 
+Execute the above functions in appropriate order to run this analysis. These functions are all kept in this one file for the ease of navigation during code review.
 
 
 
