@@ -77,6 +77,7 @@ The following is a general description for these functions :
 * Function 2 -loadMerge: Merge "Training" and "Test" data sets for each volunteer and their activiy into one data frame.
 * Function 3 -cleanData: Feature selection, label cleanup, and convert numeric activity labels to descriptive labels
 * Function 4 -writeTidyData: Calculate average for all quantitative variables selected for each person and their activity, and generate "tidydata.txt"
+* R Code Snippet to execute the above function in order.
 	
 ####Function 1 -dataDownload(dir,zipfileurl)
 
@@ -92,8 +93,14 @@ Pseudocode for this function.
 * Finally make the data subdirectory as new "working directory" and return this location.
 
 ```
+    # Function to prepare data for reading.
+    # @dir - Location to the "Path" where a directory is "CREATED". CAUTION: If a directory already exists, it will deleted and recreated.
+    # @zipfileurl - Internet url for the zipfile location
+
     dataDownload<-function(dir,zipfileurl) {
-        dir<-paste(dir,"/data",sep="") # Caution directory will removed and recreated each time
+		# Caution directory will removed and recreated each time
+        dir<-paste(dir,"/data",sep="") 
+		
         if (!file.exists(dir)) 
             {
                 dir.create(dir) 
@@ -113,12 +120,41 @@ Pseudocode for this function.
     
 ####Function 2 -loadMerge(dir)
 
-This function takes working directory (dir) as input parameter and returns a merged data set containing all features for all volunteers and their numeric activity labels.
+This function takes working directory (dir) returned from dataDownload function as input parameter and returns a merged data set containing all features for all volunteers and their numeric activity labels.
 
 Pseudocode for this function.
 * Get all the features from the UCI Samsung data set. 
-* Build TEST data set
-** load volunteers, their activities and their measurements into "allTest" data.frame.
+* Build TEST data set - "allTest" data.frame to include all test volunteers, their activities and their measurements. 
+* Build TRAIN data set - "allTest" data.frame to include all test volunteers, their activities and their measurements.
+* Label subjects as "person" and their numeric activities as "activity" in the above data.frame.
+* Merge the two data sets and return this originaldataset.
+
+####Function 3 -cleanData(originaldataset,dir)
+
+This function takes "originaldataset" returned from loadMerge function and current working directory "dir" as parameters. It selects the features for the final data set. It also cleans variable names for these selected features. Finally it converts numeric activities of the volunteers as meaningful descriptive labels.
+
+Pseudocode for this function.
+* Build select data set with only the features that have either "mean()" or "std()" in its name in the original data set.
+* Rename and clean variable names to meaningful and valid column names for R programming.
+* Include person and activity columns from the original data set in this select data set.
+* Finally rename the numeric activity labels to descriptive activity names using "activity_labels.txt" file in the UCI dataset.
+* Return this selected subset of data
+
+
+####Function 4 -writeTidyData(selectdata,dir)
+
+This function takes "selectdata" returned from cleanData function and current working directory "dir" as parameters. It then computes the average of each variable for each activity and each volunteer ("person"). It then formats and writes this data into "tidydata.txt" file.
+
+Pseudocode for this function.
+* Computes the average of each variable for each activity and each person.
+* Format the output data into scietific data format with seven digits after decimal.
+* write the data set into "tidydata.txt" file in the current working directory. 
+
+####R Code Snippet - Execute the above functions in the order of theie definition to run this analysis. These functions are all kept in this one file for ease of navigation thru code.
+
+
+
+
     
     
     
