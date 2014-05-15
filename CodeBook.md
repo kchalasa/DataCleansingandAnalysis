@@ -12,12 +12,11 @@ average of "standard deviation" measurements  with features named like "std()" i
 Selected quantitative features (66) are included for each of the 30 volunteers ("person") and six of their 6 physical activities ("activity"). 
 So in this dataset there are only 180 aggregated records, one record per each activity for each person. 
 
-## Variables in the "tidydata.txt"
+## Variables
 
-Below is the description for the variables included in the data set for the course project. Each of these features or variables were collected from sensors 
-(the accelerometer and gyroscope 3-axial raw signals) of the Samsung Galaxy S II phone in the orginal study.
+Below is the description for the variables included in the "tidydata.txt" data set for this course project. Each of the features or variables were collected from sensors (the accelerometer and gyroscope 3-axial raw signals) of the Samsung Galaxy S II phone in the orginal UCI study.
 
-Variables:
+#####Qualitative Variables:
 * person : A unique label id assigned to each of the volunteer in this experiment.
 		```
 		1 through 30
@@ -32,7 +31,7 @@ Variables:
 		6 - LAYING
 		```
 
-####Quantitative variable or feature naming conventions used:
+#####Quantitative variable or feature naming conventions used:
 
 * Prefix 't' to denote the time domain signals
 * Prefix 'f' to indicate the frequency domain signals
@@ -47,7 +46,7 @@ Variables:
 * Includes 'mean' for average mean
 * Includes 'std' for average standard deviation (std)
 
-####General feature groups:
+#####General feature groups:
 
 Using Samsung Galaxy S II phone's embedded accelerometer, 3-axial linear acceleration were captured. These sensor acceleration signals were pre-processed and separated using a Butterworth low-pass filter into body acceleration and gravity. These features are labeled as listed below along XYZ axis for their "mean" and standard deviation averages. 
 
@@ -80,10 +79,10 @@ The magnitude of these three-dimensional signals were calculated using the Eucli
 * tbody_gyro_angular_velocity_magnitude
 * tgravity_acceleration_magnitude
 
-The complete list of variables names in this subset for course project are available in 'features.txt'.
+The complete list of variables names in this subset for the course project are available in 'features.txt'.
 
 ## Transformations for this data : 
-Several transformations were applied to the original data set in order to prepare the final clean data set ("tidydata.txt") for this project. These transformations were organized as four R functions included in the "run_analysis.R" script. 
+Several transformations were applied to the original data set in order to prepare the final clean data set ("tidydata.txt") for this project. The code for these transformations are organized into four R functions in the "run_analysis.R" script. This script also has a code snippet that calls these functions in appropriate order and generates "tidydata.txt" data set. 
 	
 The following is a general description for these functions :
 	
@@ -93,7 +92,7 @@ The following is a general description for these functions :
 * Function 4 -writeTidyData: Calculate average for all quantitative variables selected for each person and their activity, and generate "tidydata.txt"
 * R Code Snippet to execute the above function in order.
 	
-####Function 1 -dataDownload(dir,zipfileurl)
+#####Function 1 -dataDownload(dir,zipfileurl)
 
 This function takes two parameters, 1) a working directory location (dir) and 2) an internet url for the zipped data location (zipfileurl). It returns the new working directory for the project.
 
@@ -132,7 +131,7 @@ Pseudocode for this function.
     }
 ```
     
-####Function 2 -loadMerge(dir)
+#####Function 2 -loadMerge(dir)
 
 This function takes working directory (dir) returned from dataDownload function as input parameter and returns a merged data set containing all features for all volunteers and their numeric activity labels.
 
@@ -143,7 +142,7 @@ Pseudocode for this function.
 * Label subjects as "person" and their numeric activities as "activity" in the above data.frame.
 * Merge the two data sets and return this originaldataset.
 
-####Function 3 -cleanData(originaldataset,dir)
+#####Function 3 -cleanData(originaldataset,dir)
 
 This function takes "originaldataset" returned from loadMerge function and current working directory "dir" as parameters. It selects the features for the final data set. It also cleans variable names for these selected features. Finally it converts numeric activities of the volunteers as meaningful descriptive labels.
 
@@ -155,7 +154,7 @@ Pseudocode for this function.
 * Return this selected subset of data
 
 
-####Function 4 -writeTidyData(selectdata,dir)
+#####Function 4 -writeTidyData(selectdata,dir)
 
 This function takes "selectdata" returned from cleanData function and current working directory "dir" as parameters. It then computes the average of each variable for each activity and each volunteer ("person"). It then formats and writes this data into "tidydata.txt" file.
 
@@ -164,7 +163,7 @@ Pseudocode for this function.
 * Format the output data into scietific data format with seven digits after decimal.
 * write the data set into "tidydata.txt" file in the current working directory. 
 
-####R Code Snippet - Execute the above functions in the order of theie definition to run this analysis. These functions are all kept in this one file for ease of navigation thru code.
+#####R Code Snippet - Execute the above functions in the order of theie definition to run this analysis. These functions are all kept in this one file for ease of navigation thru code.
 
 
 
