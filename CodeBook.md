@@ -1,20 +1,18 @@
 # CODEBOOK - "Getting and Cleaning Data - Course Project"
 
 ## Data
-This data is a subset of the "Human Activity Recognition Using Smartphones Dataset Version 1.0".The original data and the experiment are available at the [UCI Machine Learning Repository] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones). This data cannot be used for commercial purposes, its license and website url is included in the "README.md" file.
+This data is a subset of the "Human Activity Recognition Using Smartphones Dataset Version 1.0".The original data and the experiment are available at the [UCI Machine Learning Repository] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones). This data cannot be used for commercial purposes.
 
-An experiment was carried out on 30 volunteers and ix activities(WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) they performed while wearing a smartphone (Samsung Galaxy S II) on their waist. Using the sensors embedded in this phone, a lot of data were gathered, and several data elements were derived from these data. 
+An experiment was carried out on 30 volunteers and six activities(WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) they performed while wearing a smartphone (Samsung Galaxy S II) on their waist. Using the sensors embedded in this phone, a lot of data were gathered, and several data elements were derived from these data. 
 
 A set of transformations were applied on the original data set to arrive at the "tidydata" set for this project. These transformations are described in this document.
 
-Final "course project" data set includes- only average of "mean" measurements with features named like "mean()" in the original data set and 
-average of "standard deviation" measurements  with features named like "std()" in the original data set for each person and their activity.
-Selected quantitative features (66) are included for each of the 30 volunteers ("person") and six of their 6 physical activities ("activity"). 
+Final "course project" data set includes- selected quantitative features (66) and two qualitative features. In other words the data set has 66 numeric measures for each of the 30 volunteers and six of their activities.
 So in this dataset there are only 180 aggregated records, one record per each activity for each person. 
 
 ## Variables
 
-Below is the description for the variables included in the "tidydata.txt" data set for this course project. Each of the features or variables were collected from sensors (the accelerometer and gyroscope 3-axial raw signals) of the Samsung Galaxy S II phone in the orginal UCI study.
+Listed below are the qualitative and quantitative variables included in the "tidydata.txt" data set for this course project. 
 
 #####Qualitative Variables:
 * person : A unique label id assigned to each of the volunteer in this experiment.
@@ -31,7 +29,11 @@ Below is the description for the variables included in the "tidydata.txt" data s
 		6 - LAYING
 		```
 
-#####Quantitative variable or feature naming conventions used:
+#####Quantitative Variables:
+
+As mentioned before there are 66 quantitative variables, they are all listed in ["features.txt"] (https://github.com/kchalasa/DataCleansingandAnalysis/blob/master/features.txt) file included in this repository. 
+
+Naming conventions used for these variables:
 
 * Prefix 't' to denote the time domain signals
 * Prefix 'f' to indicate the frequency domain signals
