@@ -17,9 +17,23 @@ So in this dataset there are only 180 aggregated records, one record per each ac
 Below is the description for the variables included in the data set for the course project. Each of these features or variables were collected from sensors 
 (the accelerometer and gyroscope 3-axial raw signals) of the Samsung Galaxy S II phone in the orginal study.
 
-####General feature labels:
-* person : A unique label id (1 thru 30) assigned to each of the volunteer in this experiment.
-* activity: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING 
+Variables:
+* person : A unique label id assigned to each of the volunteer in this experiment.
+		```
+		1 through 30
+		```
+* activity: A variable to hold one of the six descriptive activity names.
+		```
+		1 - WALKING
+		2 - WALKING_UPSTAIRS
+		3 - WALKING_DOWNSTAIRS
+		4 - SITTING
+		5 - STANDING
+		6 - LAYING
+		```
+
+####Quantitative variable or feature naming conventions used:
+
 * Prefix 't' to denote the time domain signals
 * Prefix 'f' to indicate the frequency domain signals
 * Suffix 'x' for X-axis
