@@ -1,21 +1,21 @@
 # CODEBOOK - "Getting and Cleaning Data - Course Project"
 
 ## Data
-This data is a subset of the "Human Activity Recognition Using Smartphones Dataset Version 1.0".The original data and the experiment are available at the [UCI Machine Learning Repository] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones). This data cannot be used for commercial purposes.
+This data is a subset of the "Human Activity Recognition Using Smartphones Dataset Version 1.0". The original data and the experiment are available at the [UCI Machine Learning Repository] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones). This data cannot be used for commercial purposes.
 
-An experiment was carried out on 30 volunteers and six activities(WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) they performed while wearing a smartphone (Samsung Galaxy S II) on their waist. Using the sensors embedded in this phone, a lot of data were gathered, and several data elements were derived from these data. 
+An experiment was carried out on 30 volunteers and six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) they performed while wearing a smartphone (Samsung Galaxy S II) on their waist. Using the sensors embedded in this phone, a lot of data were gathered, and several additional data elements were derived from these data. 
 
-A set of transformations were applied on the original data set to arrive at the "tidydata" set for this project. These transformations are described in this document.
+A set of transformations were applied on the original data set to arrive at the "tidydata" data set for this project. These transformations are described in this document.
 
 Final "course project" data set includes- selected quantitative features (66) and two qualitative features. In other words the data set has 66 numeric measures for each of the 30 volunteers and six of their activities.
-So in this dataset there are only 180 aggregated records, one record per each activity for each person. 
+Dataset contains 180 aggregated records, one activity for each of the 30 volunteers. 
 
 ## Variables
 
 Listed below are the qualitative and quantitative variables included in the "tidydata.txt" data set for this course project. 
 
 #####Qualitative Variables:
-* person : A unique label id assigned to each of the volunteer in this experiment.
+* person: A unique label id assigned to each of the volunteer in this experiment.
 		```
 		1 through 30
 		```
@@ -84,7 +84,7 @@ The magnitude of these three-dimensional signals were calculated using the Eucli
 The complete list of variables names in this subset for the course project are available in 'features.txt'.
 
 ## Transformations for this data : 
-Several transformations were applied to the original data set in order to prepare the final clean data set ("tidydata.txt") for this project. The code for these transformations are organized into four R functions in the "run_analysis.R" script. This script also has a code snippet that calls these functions in appropriate order and generates "tidydata.txt" data set. 
+Several transformations were applied to the original data set provided in order to prepare the final clean data set ("tidydata.txt") for this project. The code for these transformations are organized into four R functions in the "run_analysis.R" script. This script also has a code snippet that calls these functions in an appropriate order to generates "tidydata.txt" data set. 
 	
 The following is a general description for these functions :
 	
@@ -143,6 +143,51 @@ Pseudocode for this function.
 * Build TRAIN data set - "allTest" data.frame to include all test volunteers, their activities and their measurements.
 * Label subjects as "person" and their numeric activities as "activity" in the above data.frame.
 * Merge the two data sets and return this originaldataset.
+```
+	loadMerge<-function(dir) {
+			setwd(dir)
+		# Read all features in the dataset
+			features<-read.table(paste(dir,"/data/UCI HAR Dataset/features.txt",sep=""))
+		
+		# STEP 1a. load Test data set
+		# load all subjects in TEST Set
+			subjTest<-read.table(paste(dir,"/data/UCI HAR Dataset/test/subject_test.txt",sep=""))
+			names(subjTest)<-"person"
+		
+		# load all activities for the subjects or people in the TEST Set
+			ytest<-read.table(paste(dir,"/data/UCI HAR Dataset/test/y_test.txt",sep=""))
+			names(ytest)<-"activity"
+		
+		# load all features or measurements provided in the TEST Set
+			xtest<-read.table(paste(dir,"/data/UCI HAR Dataset/test/X_test.txt",sep=""))
+			names(xtest)<-features$V2
+		
+		# Build "Test" dataset
+			allTest<-cbind(xtest,ytest)
+			allTest<-cbind(allTest,subjTest)
+		
+		# STEP 1b. load TRAIN data Set
+		# load all subjects in train data set
+			subjTrain<-read.table(paste(dir,"/data/UCI HAR Dataset/train/subject_train.txt",sep=""))
+			names(subjTrain)<-"person"
+		
+		# load all activities for the subjects or people in the train Set
+			ytrain<-read.table(paste(dir,"/data/UCI HAR Dataset/train/y_train.txt",sep=""))
+			names(ytrain)<-"activity"
+		
+		# load all features or measurements provided in the train Set
+			xtrain<-read.table(paste(dir,"/data/UCI HAR Dataset/train/X_train.txt",sep=""))
+			names(xtrain)<-features$V2
+		
+		# Build "train" dataset - merge columns
+			allTrain<-cbind(xtrain,ytrain)
+			allTrain<-cbind(allTrain,subjTrain)		
+		
+		# Merge TEST and TRAIN data sets --merge rows
+			originaldataset<-rbind(allTest,allTrain)
+			originaldataset
+		}
+```	
 
 #####Function 3 -cleanData(originaldataset,dir)
 
@@ -155,7 +200,44 @@ Pseudocode for this function.
 * Finally rename the numeric activity labels to descriptive activity names using "activity_labels.txt" file in the UCI dataset.
 * Return this selected subset of data
 
+```
+		
+	cleanData <- function(originaldataset,dir) {
+				setwd(dir)
+				# Read all features in the dataset
+				features<-read.table(paste(dir,"/data/UCI HAR Dataset/features.txt",sep=""))
 
+		# STEP 2. Extract only the measurements on the mean  and standard deviation "std()" for each measurement
+				# Build a "index" for selecting mean and standard deviation measurements 
+					pickFeatures <- c("mean\\(\\)","std\\(\\)","activity","person")
+					meanstdindex <- grep(paste(pickFeatures,collapse="|"),features$V2)
+					selectdata<-originaldataset[,meanstdindex]
+				
+				# STEP 4. Appropriately labels the data set with descriptive activity names.
+					quantitativeColNames<-tolower(gsub("\\(\\)","",gsub("\\-","",features[meanstdindex,]$V2)))
+					quantitativeColNames<-gsub("fbody","fbody_",quantitativeColNames)
+					quantitativeColNames<-gsub("tgravity","tgravity_",quantitativeColNames)
+					quantitativeColNames<-gsub("tbody","tbody_",quantitativeColNames)
+					quantitativeColNames<-gsub("acc","acceleration_",quantitativeColNames)
+					quantitativeColNames<-gsub("gyro","gyro_angular_velocity_",quantitativeColNames)
+					quantitativeColNames<-gsub("mag","magnitude_",quantitativeColNames)
+					quantitativeColNames<-gsub("jerk","jerk_signal_",quantitativeColNames)
+					names(selectdata)<-quantitativeColNames
+					selectdata<-cbind(selectdata,originaldataset[,562:563])
+
+			
+		# STEP 3. Uses descriptive activity names to name the activities in the data set
+				for (i in 1:length(selectdata$activity)) {
+					 if (selectdata$activity[i]==1) selectdata$activity[i]<-"WALKING"
+					 if (selectdata$activity[i]==2) selectdata$activity[i]<-"WALKING_UPSTAIRS"
+					 if (selectdata$activity[i]==3) selectdata$activity[i]<-"WALKING_DOWNSTAIRS"
+					 if (selectdata$activity[i]==4) selectdata$activity[i]<-"SITTING"
+					 if (selectdata$activity[i]==5) selectdata$activity[i]<-"STANDING"
+					 if (selectdata$activity[i]==6) selectdata$activity[i]<-"LAYING"
+				}
+			selectdata
+	}
+```
 #####Function 4 -writeTidyData(selectdata,dir)
 
 This function takes "selectdata" returned from cleanData function and current working directory "dir" as parameters. It then computes the average of each variable for each activity and each volunteer ("person"). It then formats and writes this data into "tidydata.txt" file.
@@ -165,9 +247,32 @@ Pseudocode for this function.
 * Format the output data into scietific data format with seven digits after decimal.
 * write the data set into "tidydata.txt" file in the current working directory. 
 
-#####R Code Snippet 
-Execute the above functions in appropriate order to run this analysis. These functions are all kept in this one file for the ease of navigation during code review.
+```
+	writeTidyData <- function(selectdata,dir) {
+		setwd(dir)
+		library(plyr)
+		# Calculate average for all quantitative variables for each person and their activity
+		write.table(ddply(selectdata,.(person,activity),function(dataset){formatC(colMeans(dataset[,1:66]),digits=7,format="e")}),"tidydata.txt",row.names=FALSE, quote = FALSE)
+	}
+```
 
+#####R Code Snippet 
+This snippet calls the above functions in appropriate order to run this analysis. These functions are all kept in this one file to make code review easier.
+
+```
+	# STEP 0 - Call function "dataDownload" to download the data
+		workDir<-dataDownload("C:/KantiOLD/courseera/DataScience/cleaning data/courseProject","https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip")
+		
+	# STEP 1 - Call function "loadMerge" to load and merge the data
+		resultSet<-loadMerge(workDir)
+		
+	# Steps 2 - 3 - 4	- Call function  "cleanData" 
+		cleanresultSet<-cleanData(resultSet,workDir)	
+		
+	# Steps 5	- Call function "writeTidyData" to prepare and write final "tidydata"
+		writeTidyData(cleanresultSet,workDir)
+		
+```		
 
 
 
