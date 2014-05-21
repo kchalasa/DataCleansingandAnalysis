@@ -1,5 +1,6 @@
 ## run_analysis.R Script
 ## Place this script in your working directory and use source("run_analysis.R") command to run it.
+## Make sure you have internet access before running this script
 ## Please note a "data" directory will be created in your working directory. It will delete "data" directory if it already exists.
 ## This script has  a set functions that perform transformations on source data to create a tidydata.txt data set. 
 ## All these functions are executed at the end of this script in an appropriate order
