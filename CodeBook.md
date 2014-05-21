@@ -277,7 +277,7 @@ This snippet calls the above functions in appropriate order to run this analysis
 		
 ```		
 
-Tidy data set "tidydata.txt" is now ready.
+Review the "tidydata.txt" file in your working directory for final clean data set.
 
 
     
