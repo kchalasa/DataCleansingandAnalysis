@@ -5,7 +5,7 @@ This data is a subset of the "Human Activity Recognition Using Smartphones Datas
 
 An experiment was carried out on 30 volunteers and six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) they performed while wearing a smartphone (Samsung Galaxy S II) on their waist. Using the sensors embedded in this phone, a lot of data were gathered, and several additional data elements were derived from these data. 
 
-A set of transformations were applied on the original data set to arrive at the "tidydata" data set for this project. These transformations are described in this document.
+A set of transformations were applied on the [original data] (https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) set to arrive at the "tidydata" data set for this project. These transformations are described in this document.
 
 Final "course project" data set includes- selected quantitative features (66) and two qualitative features. In other words the data set has 66 numeric measures for each of the 30 volunteers and six of their activities.
 Dataset contains 180 aggregated records, one activity for each of the 30 volunteers. 
