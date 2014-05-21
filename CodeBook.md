@@ -139,49 +139,50 @@ This function takes working directory (dir) returned from dataDownload function 
 
 Pseudocode for this function.
 * Get all the features from the UCI Samsung data set. 
-* Build TEST data set - "allTest" data.frame to include all test volunteers, their activities and their measurements. 
-* Build TRAIN data set - "allTest" data.frame to include all test volunteers, their activities and their measurements.
-* Label subjects as "person" and their numeric activities as "activity" in the above data.frame.
+* Build TEST data set - "allTest" data.frame to include all test set volunteers, their activities and their measurements. 
+* Build TRAIN data set - "allTrain" data.frame to include all train set volunteers, their activities and their measurements.
+* Label subjects as "person" and their numeric activities as "activity" in the above data frames.
 * Merge the two data sets and return this originaldataset.
 ```
 	loadMerge<-function(dir) {
+		# Set the working directory
 			setwd(dir)
-		# Read all features in the dataset
+			# Read all features in the dataset
 			features<-read.table(paste(dir,"/data/UCI HAR Dataset/features.txt",sep=""))
 		
 		# STEP 1a. load Test data set
-		# load all subjects in TEST Set
-			subjTest<-read.table(paste(dir,"/data/UCI HAR Dataset/test/subject_test.txt",sep=""))
-			names(subjTest)<-"person"
-		
-		# load all activities for the subjects or people in the TEST Set
-			ytest<-read.table(paste(dir,"/data/UCI HAR Dataset/test/y_test.txt",sep=""))
-			names(ytest)<-"activity"
-		
-		# load all features or measurements provided in the TEST Set
-			xtest<-read.table(paste(dir,"/data/UCI HAR Dataset/test/X_test.txt",sep=""))
-			names(xtest)<-features$V2
-		
-		# Build "Test" dataset
-			allTest<-cbind(xtest,ytest)
-			allTest<-cbind(allTest,subjTest)
+			# load all subjects in TEST Set
+				subjTest<-read.table(paste(dir,"/data/UCI HAR Dataset/test/subject_test.txt",sep=""))
+				names(subjTest)<-"person"
+			
+			# load all activities for the subjects or people in the TEST Set
+				ytest<-read.table(paste(dir,"/data/UCI HAR Dataset/test/y_test.txt",sep=""))
+				names(ytest)<-"activity"
+			
+			# load all features or measurements provided in the TEST Set
+				xtest<-read.table(paste(dir,"/data/UCI HAR Dataset/test/X_test.txt",sep=""))
+				names(xtest)<-features$V2
+			
+			# Build "Test" dataset
+				allTest<-cbind(xtest,ytest)
+				allTest<-cbind(allTest,subjTest)
 		
 		# STEP 1b. load TRAIN data Set
-		# load all subjects in train data set
-			subjTrain<-read.table(paste(dir,"/data/UCI HAR Dataset/train/subject_train.txt",sep=""))
-			names(subjTrain)<-"person"
-		
-		# load all activities for the subjects or people in the train Set
-			ytrain<-read.table(paste(dir,"/data/UCI HAR Dataset/train/y_train.txt",sep=""))
-			names(ytrain)<-"activity"
-		
-		# load all features or measurements provided in the train Set
-			xtrain<-read.table(paste(dir,"/data/UCI HAR Dataset/train/X_train.txt",sep=""))
-			names(xtrain)<-features$V2
-		
-		# Build "train" dataset - merge columns
-			allTrain<-cbind(xtrain,ytrain)
-			allTrain<-cbind(allTrain,subjTrain)		
+			# load all subjects in train data set
+				subjTrain<-read.table(paste(dir,"/data/UCI HAR Dataset/train/subject_train.txt",sep=""))
+				names(subjTrain)<-"person"
+			
+			# load all activities for the subjects or people in the train Set
+				ytrain<-read.table(paste(dir,"/data/UCI HAR Dataset/train/y_train.txt",sep=""))
+				names(ytrain)<-"activity"
+			
+			# load all features or measurements provided in the train Set
+				xtrain<-read.table(paste(dir,"/data/UCI HAR Dataset/train/X_train.txt",sep=""))
+				names(xtrain)<-features$V2
+			
+			# Build "train" dataset - merge columns
+				allTrain<-cbind(xtrain,ytrain)
+				allTrain<-cbind(allTrain,subjTrain)		
 		
 		# Merge TEST and TRAIN data sets --merge rows
 			originaldataset<-rbind(allTest,allTrain)
@@ -191,7 +192,7 @@ Pseudocode for this function.
 
 #####Function 3 -cleanData(originaldataset,dir)
 
-This function takes "originaldataset" returned from loadMerge function and current working directory "dir" as parameters. It selects the features for the final data set. It also cleans variable names for these selected features. Finally it converts numeric activities of the volunteers as meaningful descriptive labels.
+This function takes "originaldataset" returned from loadMerge function and current working directory "dir" as parameters. It selects the mean and standard deviation features for the final data set. It also cleans variable names for these selected features. Finally it converts numeric activities of the volunteers as meaningful descriptive labels.
 
 Pseudocode for this function.
 * Build select data set with only the features that have either "mean()" or "std()" in its name in the original data set.
@@ -203,11 +204,12 @@ Pseudocode for this function.
 ```
 		
 	cleanData <- function(originaldataset,dir) {
+			# Set the working directory
 				setwd(dir)
 				# Read all features in the dataset
 				features<-read.table(paste(dir,"/data/UCI HAR Dataset/features.txt",sep=""))
 
-		# STEP 2. Extract only the measurements on the mean  and standard deviation "std()" for each measurement
+			# STEP 2. Extract only the measurements on the mean  and standard deviation "std()" for each measurement
 				# Build a "index" for selecting mean and standard deviation measurements 
 					pickFeatures <- c("mean\\(\\)","std\\(\\)","activity","person")
 					meanstdindex <- grep(paste(pickFeatures,collapse="|"),features$V2)
@@ -226,16 +228,17 @@ Pseudocode for this function.
 					selectdata<-cbind(selectdata,originaldataset[,562:563])
 
 			
-		# STEP 3. Uses descriptive activity names to name the activities in the data set
-				for (i in 1:length(selectdata$activity)) {
-					 if (selectdata$activity[i]==1) selectdata$activity[i]<-"WALKING"
-					 if (selectdata$activity[i]==2) selectdata$activity[i]<-"WALKING_UPSTAIRS"
-					 if (selectdata$activity[i]==3) selectdata$activity[i]<-"WALKING_DOWNSTAIRS"
-					 if (selectdata$activity[i]==4) selectdata$activity[i]<-"SITTING"
-					 if (selectdata$activity[i]==5) selectdata$activity[i]<-"STANDING"
-					 if (selectdata$activity[i]==6) selectdata$activity[i]<-"LAYING"
-				}
-			selectdata
+			# STEP 3. Uses descriptive activity names to name the activities in the data set
+					for (i in 1:length(selectdata$activity)) {
+						 if (selectdata$activity[i]==1) selectdata$activity[i]<-"WALKING"
+						 if (selectdata$activity[i]==2) selectdata$activity[i]<-"WALKING_UPSTAIRS"
+						 if (selectdata$activity[i]==3) selectdata$activity[i]<-"WALKING_DOWNSTAIRS"
+						 if (selectdata$activity[i]==4) selectdata$activity[i]<-"SITTING"
+						 if (selectdata$activity[i]==5) selectdata$activity[i]<-"STANDING"
+						 if (selectdata$activity[i]==6) selectdata$activity[i]<-"LAYING"
+					}
+			# Return clean data set	
+				selectdata
 	}
 ```
 #####Function 4 -writeTidyData(selectdata,dir)
@@ -274,6 +277,7 @@ This snippet calls the above functions in appropriate order to run this analysis
 		
 ```		
 
+Tidy data set "tidydata.txt" is now ready.
 
 
     
