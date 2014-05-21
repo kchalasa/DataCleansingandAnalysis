@@ -15,7 +15,7 @@ License for this data is included at the bottom of this page.
 
 * 'features.txt' : List of all feature names included in the 'tidydata.txt'.
 
-* 'run_analysis.R' : A script in "R Programming Language" to download the zipped data from UCI website, unzip it and then transform this data using the "Getting and Cleaning Data - Course Project" guidelines to prepare a tidy subset of source data.
+* 'run_analysis.R' : A script in "R Programming Language" to download the zipped data from UCI website, unzip it and then transform this data using the "Getting and Cleaning Data - Course Project" guidelines to prepare a tidy subset of source data. In order to run this script, set your working directory to the directory where you placed the run_analysis.R script. Please note it will create a data directory in your working directory. Please be cautious as this will delete data directory if it already exists. It will download the data here for processing.
 
 * 'tidydata.txt' : Output from the run_analysis.R script.
 
